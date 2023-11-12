@@ -3,11 +3,11 @@
 # **Create a DevBox via Nix on macOS**
 
 [![License](https://img.shields.io/github/license/wintermi/nix-macos-devbox)](https://github.com/wintermi/nix-macos-devbox/blob/main/LICENSE)
-[![Built with Devbox](https://jetpack.io/img/devbox/shield_galaxy.svg)](https://jetpack.io/devbox/docs/contributor-quickstart/)
+[![Built with Devbox](https://jetpack.io/img/devbox/shield_moon.svg)](https://jetpack.io/devbox/docs/contributor-quickstart/)
 
 ## Overview
 
-A simple guide to installing [Nix](https://nixos.org/) on macOS and then creating an isolated shell for development using a [JetPack.io DevBox](https://www.jetpack.io/devbox/).
+A simple guide to installing [Nix](https://nixos.org/) on macOS and then using the [JetPack.io DevBox](https://www.jetpack.io/devbox/) as your Primary Package Manager.
 
 ## Installing Nix
 
