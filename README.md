@@ -68,7 +68,7 @@ In addition to managing isolated development environments, you can use DevBox as
 
 ### Adding and Managing Global Packages
 
-You can install a package using `devbox global add [<package>]`, where the package names should be a list of [Nix Packages](https://search.nixos.org/packages) you want to install.
+You can install a package using `devbox global add [<package>]`, where the package names should be a list of [Nix Packages](https://www.nixhub.io/) you want to install.
 
 For example, if we wanted to install ripgrep, vim, and git to our global profile, we could run:
 
