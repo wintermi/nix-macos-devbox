@@ -2,6 +2,9 @@
 
 # **Create a DevBox via Nix on macOS**
 
+[![License](https://img.shields.io/github/license/wintermi/nix-macos-devbox)](https://github.com/wintermi/nix-macos-devbox/blob/main/LICENSE)
+[![Built with Devbox](https://jetpack.io/img/devbox/shield_galaxy.svg)](https://jetpack.io/devbox/docs/contributor-quickstart/)
+
 ## Overview
 
 A simple guide to installing [Nix](https://nixos.org/) on macOS and then creating an isolated shell for development using a [JetPack.io DevBox](https://www.jetpack.io/devbox/).
@@ -17,7 +20,7 @@ To install [`Nix`](https://nixos.org/) on your macOS computer follow these steps
 
 Install the Xcode Command Line Tools, which is a collection of tools for software developers that run on the command line, in the Terminal application.
 
-```bash
+```zsh
 xcode-select --install
 ```
 
@@ -27,13 +30,13 @@ Install Nix using the [Determinate Nix Installer](https://github.com/Determinate
 
 Execute the following command from a macOS Terminal application and when prompted select all of the defaults.
 
-```bash
+```zsh
 curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
 ```
 
-Once the above is complete, you will need to add the following line to your `.zshrc` file to ensure the Nix binaries are available within your system path:
+Once the above is complete, you will need to add the following line to your `~/.zshrc` file to ensure the Nix binaries are available within your system path:
 
-```bash
+```zsh
 source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 ```
 
@@ -45,7 +48,7 @@ There are a couple of options which could be followed when installing the [JetPa
 
 Since we started with a clean install of Nix we must first add the available Nix Package channels which will be used when installing software. This can be achieved by executing the following commands from a macOS Terminal application.
 
-```bash
+```zsh
 nix-channel --add https://nixos.org/channels/nixpkgs-23.05-darwin nixpkgs;
 nix-channel --add https://nixos.org/channels/nixpkgs-unstable unstable;
 nix-channel --update;
@@ -53,7 +56,7 @@ nix-channel --update;
 
 Once complete, execute the following command to install the DevBox package.
 
-```bash
+```zsh
 nix-env -iA unstable.devbox
 ```
 
@@ -69,20 +72,40 @@ You can install a package using `devbox global add [<package>]`, where the packa
 
 For example, if we wanted to install ripgrep, vim, and git to our global profile, we could run:
 
-```bash
+```zsh
 devbox global add ripgrep wget git
 ```
 
-Once installed, the packages will be available whenever you start a Devbox Shell, even if it's not included in the project's `devbox.json`.
+Once installed, the packages will be available whenever you start a DevBox Shell, even if it's not included in the project's `devbox.json`.
 
 To view a full list of global packages, you can run `devbox global list`:
 
-```bash
+```zsh
 devbox global list
 ```
 
+### Using Global Packages in your Host Shell
+
+If you want to make your global packages available in your host shell, you can add them to your shell PATH. Running `devbox global shellenv` will print the command necessary to source the packages.
+
+Add the following command to your `~/.zshrc` file:
+
+Once the above is complete, you will need to add the following line to your `.zshrc` file to ensure the Nix binaries are available within your system path:
+
+```zsh
+eval "$(devbox global shellenv --init-hook)"
+```
+
+Make sure to add this hook before any other hooks that use your global packages.
+
+### Sharing Your Global Config with Git
+
+You can use Git to synchronize your `devbox global` config across multiple machines using `devbox global push <remote>` and `devbox global pull <remote>`.
+
+Your global `devbox.json` and any other files in the Git remote will be stored in `$XDG_DATA_HOME/devbox/global/default`. If `$XDG_DATA_HOME` is not set, it will default to `~/.local/share/devbox/global/default`. You can view the current global directory by running `devbox global path`.
+
 ## Execute Garbage Collection for Nix
 
-```bash
+```zsh
 nix-collect-garbage
 ```
